@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant S as Scanner
+    participant N as Network
+    participant T as Target
+    
+    S->>N: Generate Random IPs
+    loop For Each IP
+        S->>T: TCP SYN
+        alt Port Open
+            T-->>S: SYN-ACK
+            S->>T: HTTP GET (if web port)
+            T-->>S: Banner Response
+            S->>S: Parse for new targets
+        else Port Closed
+            T-->>S: RST
+        end
+    end

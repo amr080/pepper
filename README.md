@@ -6,4 +6,4 @@ Discovers new targets from web responses<br>
 Maintains aggressive performance<br>
 Tracks all connection attempts<br>
 Provides detailed logging<br>
- No external dependencies needed—just socket, threading, logging, etc.<br>
+No external dependencies needed—just socket, threading, logging, etc.<br>

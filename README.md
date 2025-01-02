@@ -18,3 +18,4 @@ Mbps download
 19.6
 
 Mbps upload
+standard library

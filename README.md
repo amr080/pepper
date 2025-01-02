@@ -1,0 +1,8 @@
+## SALT AND PEPPER
+
+Generates random public IP ranges<br>
+Scans with extreme parallelism<br>
+Discovers new targets from web responses<br>
+Maintains aggressive performance<br>
+Tracks all connection attempts<br>
+Provides detailed logging<br>

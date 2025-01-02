@@ -1,0 +1,14 @@
+classDiagram
+    class ExtremeScanner {
+        +sock_timeout: 0.01
+        +max_workers: 16384
+        +batch_size: 8192
+        +start_port: 1
+        +end_port: 65535
+        +new_subnets: Set
+        +total_attempts: int
+        +scan_port()
+        +scan_batch()
+        +scan_subnet()
+        +run_recursive_scans()
+    }

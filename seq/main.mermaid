@@ -1,0 +1,52 @@
+graph TD
+    A[Start Scanner] --> B[Initialize Logging]
+    B --> C[Generate Random Subnets]
+    C --> D[Create Scanner Instance]
+
+    %% Scanner Initialization
+    D --> E[Set Aggressive Parameters]
+    E --> |Configure| E1[Socket Timeout 0.01s]
+    E --> |Configure| E2[Max Workers 16384]
+    E --> |Configure| E3[Batch Size 8192]
+    E --> |Configure| E4[Port Range 1-65535]
+
+    %% Main Scanning Flow
+    D --> F[Start Recursive Scanning]
+    F --> G[Get Subnet Batch]
+    G --> H[ThreadPool Executor]
+
+    %% Parallel Processing
+    H --> |Concurrent| I1[Scan Batch 1]
+    H --> |Concurrent| I2[Scan Batch 2]
+    H --> |Concurrent| I3[Scan Batch N]
+
+    %% Port Scanning Process
+    subgraph "Port Scanning Process"
+        I1 --> J1[TCP Connect]
+        J1 --> K1{Port Open?}
+        K1 -->|Yes| L1[Log Result]
+        K1 -->|No| M1[Skip]
+        
+        L1 --> N1{Is Web Port?}
+        N1 -->|Yes| O1[Banner Grab]
+        O1 --> P1[Parse for New IPs]
+        P1 --> Q1[Add to New Subnets]
+    end
+
+    %% Results Processing
+    Q1 --> R[Collect Results]
+    M1 --> R
+    R --> S[Save JSON Report]
+    S --> T{More Subnets?}
+    T -->|Yes| G
+    T -->|No| U[Sleep 60s]
+    U --> G
+
+    %% Error Handling
+    D --> V[Error Handler]
+    V --> W[Log Error]
+    W --> X[Continue/Exit]
+
+    %% Traffic Stats
+    R --> Y[Update Traffic Stats]
+    Y --> Z[Log Connection Attempts]
